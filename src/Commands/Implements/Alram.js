@@ -13,14 +13,15 @@ module.exports = class Alram extends Command{
 
     constructor(func) {
         super(
-            ["Alram", "alram", "알람"],
-            (id, args) => {
-                if(args.length < 2){
-                    func(id, 8, 0);
-                }
-                func(id, args[0], args[1])
-            },
-            () => "알람 설정 됨"
-        )
+          ["Alram", "alram", "알람"],
+          (id, args) => {
+            if (args.length < 2) {
+              func(id, 8, 0);
+            }
+            func(id, args[0], args[1]);
+
+            return "알람 설정 됨";
+          },
+        );
     }
 }

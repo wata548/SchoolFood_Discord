@@ -23,10 +23,13 @@ module.exports = class SettingCommand extends Command {
     super(
       ["설정", "Setting", "setting"],
       (id, args) => {
+        if(args.length < 2)
+          return "입력이 잘못되었습니다."
+
         SettingCommand.setRegion(id, args[0]);
         SettingCommand.setSchool(id, args[1]);
+        return "설정되었습니다.";
       },
-      (args) => "설정되었습니다.",
     );
   }
 };

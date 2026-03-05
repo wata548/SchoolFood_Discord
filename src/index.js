@@ -1,5 +1,5 @@
 require('dotenv').config();
-const Message = require('./Commands/Implements/MessageModel');
+const Message = require('./Commands/Implements/Message');
 const Setting = require('./Commands/Implements/SettingCommand');
 const FoodInfo = require('./Commands/Implements/GetFood');
 const AlramCommand = require('./Commands/Implements/Alram');

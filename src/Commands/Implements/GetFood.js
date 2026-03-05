@@ -6,7 +6,6 @@ module.exports = class GetFood extends Command{
     constructor() {
         super(
             ["급식", "밥", "Food", "food"],
-            () => {},
             async (id, args) => {
                 const region = Setting.getRegion(id);
                 const school = Setting.getSchool(id);
