@@ -2,16 +2,15 @@ require('dotenv').config();
 const Message = require('./Commands/Implements/Message');
 const Setting = require('./Commands/Implements/SettingCommand');
 const FoodInfo = require('./Commands/Implements/GetFood');
-const AlramCommand = require('./Commands/Implements/Alram');
+const AlarmCommand = require('./Commands/Implements/Alram');
 const cron = require('node-cron');
 const Prefix = '!';
 var Commands = [
     new Message(["Ping"], "Pong"),
-    new Message(["정보"], `[학교정보](https://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17020190531110010104913&infSeq=1)에서 정보 확인 후
-!설정 (시도교육청코드) (행정표준코드)`),
+    new Message(["Info", "info", "Help", "help", "도움", "정보"], ``),
     new Setting(),
     new FoodInfo(),
-    new AlramCommand(Alram)
+    new AlarmCommand(Alarm)
 ];
 
 const {
@@ -39,11 +38,11 @@ async function find(id, targetText, args) {
     return null;
 }
 
-async function Alram(id, time, minute){
+async function Alarm(id, time, minute){
     var alarm = cron.schedule(`0 ${minute} ${time} * * *`, async () => {
         console.log("Alarm executed");
         const channel = await client.channels.fetch(id);
-        if(channel){
+        if(!channel){
             console.log(`${id}canel can't find`);
             return;
         }
@@ -54,6 +53,10 @@ async function Alram(id, time, minute){
         else 
             channel.send("정보에 오류가 있습니다. 급식 정보를 받아올 수 없습니다.")
     }, {timezone:"Asia/Seoul"});
+    if(alarm){
+        AlarmCommand.getAlarm(id)?.destroy();
+        AlarmCommand.setAlarm(id, alarm, time, minute);
+    }
 }
 
 
@@ -61,8 +64,7 @@ client.once('clientReady', () => {
     console.log(`log in as ${client.user.tag}`);
 })
 
-client.on('messageCreate', async (message) => {
-    if(message.author.bot)
+client.on('messageCreate', async (message) => { if(message.author.bot)
         return;
 
     var content = message.content;

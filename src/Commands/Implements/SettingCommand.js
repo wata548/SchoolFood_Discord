@@ -23,8 +23,17 @@ module.exports = class SettingCommand extends Command {
     super(
       ["설정", "Setting", "setting"],
       (id, args) => {
-        if(args.length < 2)
-          return "입력이 잘못되었습니다."
+        if(args.length < 2){
+
+          var curSetting = "";
+          if(SettingCommand.getSchool(id) == null){
+            curSetting = `현재 설정: ${SettingCommand.getSchool(id)}, ${SettingCommand.getRegion(id)}`;
+          }
+          return `입력이 잘못되었습니다.
+[학교정보](https://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17020190531110010104913&infSeq=1)에서 정보 확인 후
+!설정 (시도교육청코드) (행정표준코드)
+${curSetting}`;
+        }
 
         SettingCommand.setRegion(id, args[0]);
         SettingCommand.setSchool(id, args[1]);
