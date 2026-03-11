@@ -16,7 +16,7 @@ module.exports = class Alram extends Command{
           ["Alram", "alram", "알람"],
           (id, args) => {
             if (args.length < 2) {
-              func(id, 8, 0);
+              return "'시간 분' 형태로 입력해주세요."
             }
             func(id, args[0], args[1]);
 

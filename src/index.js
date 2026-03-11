@@ -40,13 +40,19 @@ async function find(id, targetText, args) {
 }
 
 async function Alram(id, time, minute){
-    var alram = cron.schedule(`0 ${minute} ${time} * * *`, async () => {
-        console.log("Alram executed");
+    var alarm = cron.schedule(`0 ${minute} ${time} * * *`, async () => {
+        console.log("Alarm executed");
         const channel = await client.channels.fetch(id);
+        if(channel){
+            console.log(`${id}canel can't find`);
+            return;
+        }
         var result = await find(id, "Food", []);
         if(result != null){
             channel.send(result);
         }
+        else 
+            channel.send("정보에 오류가 있습니다. 급식 정보를 받아올 수 없습니다.")
     }, {timezone:"Asia/Seoul"});
 }
 
