@@ -7,7 +7,7 @@ const cron = require('node-cron');
 const Prefix = '!';
 var Commands = [
     new Message(["Ping"], "Pong"),
-    new Message(["Info", "info", "Help", "help", "도움", "정보"], ``),
+    new Message(["Info", "info", "Help", "help", "도움", "정보"], `눈치껏 알아서 써보세요.`),
     new Setting(),
     new FoodInfo(),
     new AlarmCommand(Alarm)
