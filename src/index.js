@@ -54,7 +54,9 @@ async function Alarm(id, time, minute){
             channel.send("정보에 오류가 있습니다. 급식 정보를 받아올 수 없습니다.")
     }, {timezone:"Asia/Seoul"});
     if(alarm){
-        AlarmCommand.getAlarm(id)?.destroy();
+        const data = AlarmCommand.getAlarm(id);
+        if(data != null)
+            data[0].destroy();
         AlarmCommand.setAlarm(id, alarm, time, minute);
     }
 }
