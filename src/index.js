@@ -66,7 +66,8 @@ client.once('clientReady', () => {
     console.log(`log in as ${client.user.tag}`);
 })
 
-client.on('messageCreate', async (message) => { if(message.author.bot)
+client.on('messageCreate', async (message) => { 
+    if(message.author.bot)
         return;
 
     var content = message.content;
@@ -79,10 +80,14 @@ client.on('messageCreate', async (message) => { if(message.author.bot)
     var command = temp[0];
     var args = temp.slice(1);
 
-    var result = await find(message.channel.id, command, args);
-    if(result != null){
+    try{
+        var result = await find(message.channel.id, command, args);
         message.reply(result);
     }
+    catch(e){
+        message.reply(`어이쿠 ${e.message}`);
+    }
+    
 })
 
 client.login(process.env.BOT_TOKEN);
