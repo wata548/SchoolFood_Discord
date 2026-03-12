@@ -26,7 +26,7 @@ module.exports = class SettingCommand extends Command {
         if(args.length < 2){
 
           var curSetting = "";
-          if(SettingCommand.getSchool(id) == null){
+          if(SettingCommand.getSchool(id) != null){
             curSetting = `현재 설정: ${SettingCommand.getSchool(id)}, ${SettingCommand.getRegion(id)}`;
           }
           return `입력이 잘못되었습니다.
