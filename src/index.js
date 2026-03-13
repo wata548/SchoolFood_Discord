@@ -38,26 +38,31 @@ async function find(id, targetText, args) {
     return null;
 }
 
-async function Alarm(id, time, minute){
-    var alarm = cron.schedule(`0 ${minute} ${time} * * *`, async () => {
-        console.log("Alarm executed");
-        const channel = await client.channels.fetch(id);
-        if(!channel){
-            console.log(`${id}canel can't find`);
-            return;
+async function Alarm(id, time, minute) {
+    try {
+        var alarm = cron.schedule(`0 ${minute} ${time} * * *`, async () => {
+            console.log("Alarm executed");
+            const channel = await client.channels.fetch(id);
+            if (!channel) {
+                console.log(`${id}canel can't find`);
+                return;
+            }
+            var result = await find(id, "Food", []);
+            if (result != null) {
+                channel.send(result);
+            }
+            else
+                channel.send("정보에 오류가 있습니다. 급식 정보를 받아올 수 없습니다.")
+        }, { timezone: "Asia/Seoul" });
+        if (alarm) {
+            const data = AlarmCommand.getAlarm(id);
+            if (data != null)
+                data[0].destroy();
+            AlarmCommand.setAlarm(id, alarm, time, minute);
         }
-        var result = await find(id, "Food", []);
-        if(result != null){
-            channel.send(result);
-        }
-        else 
-            channel.send("정보에 오류가 있습니다. 급식 정보를 받아올 수 없습니다.")
-    }, {timezone:"Asia/Seoul"});
-    if(alarm){
-        const data = AlarmCommand.getAlarm(id);
-        if(data != null)
-            data[0].destroy();
-        AlarmCommand.setAlarm(id, alarm, time, minute);
+    }
+    catch(e){
+        console.log(e);
     }
 }
 
