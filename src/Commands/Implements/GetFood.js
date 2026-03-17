@@ -3,14 +3,14 @@ const Command = require('../Command');
 const {DOMParser} = require('xmldom')
 
 module.exports = class GetFood extends Command{
-    constructor() {
+    constructor(keywords, interval) {
         super(
-            ["급식", "밥", "Food", "food"],
+            keywords,
             async (id, args) => {
                 const region = Setting.getRegion(id);
                 const school = Setting.getSchool(id);
                 const serverDate = new Date();
-                const date = new Date(serverDate.getTime() + 9 * 60 * 60 * 1000); 
+                const date = new Date(serverDate.getTime() + 9 * 60 * 60 * 1000 + interval); 
                 const year = date.getFullYear();
                 const month = (date.getMonth() + 1).toString().padStart(2, "0");
                 const day = date.getDate().toString().padStart(2, "0");

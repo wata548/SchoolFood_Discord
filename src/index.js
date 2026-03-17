@@ -9,7 +9,8 @@ var Commands = [
     new Message(["Ping"], "Pong"),
     new Message(["Info", "info", "Help", "help", "도움", "정보"], `눈치껏 알아서 써보세요.`),
     new Setting(),
-    new FoodInfo(),
+    new FoodInfo(["급식", "밥", "Food", "food"], 0),
+    new FoodInfo(["내밥", "내일", "내일밥", "다음", "Tomorrow", "NextDay", "Next", "next","明日"], 24 * 60 * 60 * 1000),
     new AlarmCommand(Alarm)
 ];
 
