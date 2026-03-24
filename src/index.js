@@ -88,7 +88,8 @@ client.on('messageCreate', async (message) => {
 
     try{
         var result = await find(message.channel.id, command, args);
-        message.reply(result);
+        if(result)
+            message.reply(result);
     }
     catch(e){
         message.reply(`어이쿠 ${e.message}`);
