@@ -27,7 +27,7 @@ module.exports = class SettingCommand extends Command {
 
           var curSetting = "";
           if(SettingCommand.getSchool(id) != null){
-            curSetting = `현재 설정: ${SettingCommand.getSchool(id)}, ${SettingCommand.getRegion(id)}`;
+            curSetting = `현재 설정: ${SettingCommand.getRegion(id)}, ${SettingCommand.getSchool(id)}`;
           }
           return `입력이 잘못되었습니다.
 [학교정보](https://open.neis.go.kr/portal/data/service/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=OPEN17020190531110010104913&infSeq=1)에서 정보 확인 후

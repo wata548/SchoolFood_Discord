@@ -41,6 +41,15 @@ async function find(id, targetText, args) {
 
 async function Alarm(id, time, minute) {
     try {
+        if(time == -1){
+            const data = AlarmCommand.getAlarm(id);
+            if (data != null){
+                data[0].destroy();
+                AlarmCommand.setAlarm(id, null, time, minute);
+            }
+            return;
+        }
+
         var alarm = cron.schedule(`0 ${minute} ${time} * * *`, async () => {
             console.log("Alarm executed");
             const channel = await client.channels.fetch(id);
