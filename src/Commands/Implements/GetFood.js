@@ -10,7 +10,11 @@ module.exports = class GetFood extends Command{
                 const region = Setting.getRegion(id);
                 const school = Setting.getSchool(id);
                 const serverDate = new Date();
-                const date = new Date(serverDate.getTime() + 9 * 60 * 60 * 1000 + interval); 
+
+                const term = 1;
+                if(args.length > 0)
+                    term = args[0];
+                const date = new Date(serverDate.getTime() + 9 * 60 * 60 * 1000 + interval * term); 
                 const year = date.getFullYear();
                 const month = (date.getMonth() + 1).toString().padStart(2, "0");
                 const day = date.getDate().toString().padStart(2, "0");
