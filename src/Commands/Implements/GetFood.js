@@ -11,7 +11,7 @@ module.exports = class GetFood extends Command{
                 const school = Setting.getSchool(id);
                 const serverDate = new Date();
 
-                const term = 1;
+                var term = 1;
                 if(args.length > 0)
                     term = args[0];
                 const date = new Date(serverDate.getTime() + 9 * 60 * 60 * 1000 + interval * term); 
